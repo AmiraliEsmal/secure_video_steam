@@ -1,0 +1,120 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[a4paper,margin=22mm]{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xepersian}
+\settextfont{Noto Naskh Arabic}
+\setlatintextfont{DejaVu Sans}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\setlist{itemsep=3pt,topsep=4pt}
+\setlist[itemize]{label=\lr{-}}
+\newcommand{\code}[1]{\lr{\texttt{#1}}}
+
+\title{صورت پروژه: پخش ویدئو با رمز جریانی مبتنی بر \lr{LFSR}}
+\author{تمرین عملی رمزنگاری}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{هدف پروژه}
+در این پروژه با سازوکار رمزهای جریانی آشنا می‌شوید. سرور، بازه‌های درخواستی ویدئو را با دنبالهٔ کلید تولیدشده توسط یک \lr{LFSR} شانزده‌بیتی رمز می‌کند. یک \lr{Service Worker} در مرورگر هر بازه را هنگام نیاز رمزگشایی می‌کند؛ بنابراین پخش پیش از دریافت کامل ویدئو آغاز می‌شود و بخش‌های بعدی هنگام پخش یا جابه‌جایی در ویدئو رمزگشایی می‌شوند.
+
+\section*{بخش‌های آماده}
+کد خواندن فایل، فهرست‌کردن ویدئوها، اعتبارسنجی درخواست، ارسال قطعه‌ها، تلاش مجدد، مرتب‌سازی قطعه‌ها و پخش در مرورگر آماده است. این بخش‌ها موضوع تمرین نیستند و لازم نیست تغییر کنند.
+
+دو ویدئوی آزمایشی در پوشهٔ \code{videos/} قرار دارند. رابط کاربری فهرست را از \code{/api/videos} دریافت می‌کند و با انتخاب هر مورد، قطعه‌های رمز‌شده را از سرور می‌گیرد.
+
+\section*{وظایف دانشجو}
+دانشجو باید دقیقاً هشت تابع زیر را تکمیل کند. نام تابع، پارامترها و نوع خروجی نباید تغییر کند. محل هر تابع با \code{TODO(student 1)} تا \code{TODO(student 8)} مشخص شده است:
+
+\begin{enumerate}
+  \item \code{stream\_cipher.py: \_next\_bit(state)}: بیت خروجی و حالت بعدی یک گام \lr{LFSR} را برگردانید.
+  \item \code{stream\_cipher.py: keystream(length, seed, offset)}: به آفست بایتی خواسته‌شده بروید و بیت‌ها را هشت‌تا هشت‌تا در بایت‌ها قرار دهید.
+  \item \code{stream\_cipher.py: xor\_bytes(data, seed, offset)}: داده را با بایت‌های متناظر دنبالهٔ کلید \lr{XOR} کنید.
+  \item \code{web/cipher.js: nextBit(state)}: همان گام ثبات را در جاوااسکریپت پیاده‌سازی کنید.
+  \item \code{web/cipher.js: keystream(length, seed, offset)}: رفتار آفست و بسته‌بندی بیت‌ها باید دقیقاً با پایتون یکسان باشد.
+  \item \code{web/cipher.js: xorBytes(data, seed, offset)}: یک \lr{Uint8Array} را با دنبالهٔ کلید رمز یا رمزگشایی کنید.
+  \item \code{cipher\_variants.py: nlfsr\_keystream(...)}: یک \lr{NLFSR} بسازید که علاوه بر بیت‌های بازخورد پایه، جملهٔ غیرخطی \lr{bit 1 AND bit 7} را نیز با آن‌ها \lr{XOR} کند.
+  \item \code{cipher\_variants.py: geffe\_keystream(...)}: خروجی سه \lr{LFSR} را با تابع غیرخطی گفه ترکیب کنید.
+\end{enumerate}
+
+برای پیاده‌سازی این توابع از رابطهٔ بازخورد چندجمله‌ای
+  \[
+    x^{16}+x^{14}+x^{13}+x^{11}+1
+  \]
+استفاده کنید. بیت خروجی، کم‌ارزش‌ترین بیت حالت است؛ ثبات به سمت راست جابه‌جا می‌شود؛ و نخستین بیت تولیدی، پرارزش‌ترین بیت بایت خروجی است. پیاده‌سازی پایتون و جاوااسکریپت باید برای \lr{seed} برابر با \code{0xACE1} چهار بایت آغازین \code{87 35 44 e2} را تولید کنند.
+
+\section*{مقایسهٔ مولدهای خطی و غیرخطی}
+پس از تکمیل هشت تابع، دستور زیر را اجرا کنید:
+
+\begin{latin}
+\begin{verbatim}
+.venv/bin/python -m tools.compare_variants
+\end{verbatim}
+\end{latin}
+
+این ابزار برای \lr{LFSR} ساده، \lr{NLFSR} و مولد گفه، دنباله‌هایی هم‌اندازه تولید می‌کند و سرعت و نتایج یکسان آزمون‌های \lr{NIST} را گزارش می‌دهد. در گزارش خود این موارد را مقایسه کنید:
+
+\begin{itemize}
+  \item سرعت تولید دنباله در سه روش؛
+  \item آزمون‌های آماری قبول یا ردشده؛
+  \item اثر جملهٔ بازخورد غیرخطی و تابع ترکیب گفه؛
+  \item دلیل کافی‌نبودن غیرخطی‌بودن برای اثبات امنیت رمزنگاری؛
+  \item ضعف هم‌بستگی مولد گفه و محدودیت حالت و دورهٔ \lr{NLFSR} کوچک.
+\end{itemize}
+
+\section*{اجرا}
+در ریشهٔ پروژه دستورهای زیر را اجرا کنید:
+
+\begin{latin}
+\begin{verbatim}
+python -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m stream_server --port 8000
+\end{verbatim}
+\end{latin}
+
+سپس نشانی \code{http://127.0.0.1:8000} را در مرورگر باز کنید و یکی از ویدئوها را انتخاب کنید. پخش را پس از آماده‌شدن نخستین بازه آغاز کنید؛ دریافت و رمزگشایی سایر بازه‌ها هم‌زمان با پخش ادامه می‌یابد.
+
+\section*{آزمون خودکار}
+برای اجرای همهٔ آزمون‌ها:
+
+\begin{latin}
+\begin{verbatim}
+.venv/bin/python -m unittest discover -s tests -v
+\end{verbatim}
+\end{latin}
+
+آزمون‌ها بردار معلوم، تقارن \lr{XOR}، صحت \lr{offset}، خطاهای ورودی، تمام ویدئوهای فهرست سرور و یکسان‌بودن فایل اصلی و فایل رمزگشایی‌شده را بررسی می‌کنند.
+
+\section*{ارزیابی کارایی و تصادفی‌بودن}
+برای اجرای سنجش سرعت و آزمون‌های کتابخانهٔ \code{nistrng}:
+
+\begin{latin}
+\begin{verbatim}
+.venv/bin/python -m tools.evaluate
+\end{verbatim}
+\end{latin}
+
+گزارش شامل زمان متوسط هر قطعه، نرخ رمزکردن، نسبت این نرخ به بیت‌ریت فرضی ویدئو، و نتیجهٔ آزمون‌های قابل اجرا از \lr{NIST SP 800-22} است. در گزارش خود توضیح دهید:
+
+\begin{itemize}
+  \item آیا سرعت تولید دنباله برای پخش بلادرنگ کافی است؟ معیار شما چیست؟
+  \item کدام آزمون‌های آماری رد یا غیرقابل اجرا شده‌اند؟
+  \item چرا قبولی در آزمون‌های آماری، پیش‌بینی‌ناپذیری \lr{LFSR} را ثابت نمی‌کند؟
+  \item استفادهٔ دوباره از یک \lr{seed} چه اطلاعاتی دربارهٔ دو متن آشکار می‌کند؟
+\end{itemize}
+
+\section*{اقلام تحویلی}
+\begin{enumerate}
+  \item فایل‌های تکمیل‌شدهٔ \code{stream\_cipher.py} و \code{web/cipher.js}؛
+  \item خروجی کامل آزمون‌های خودکار؛
+  \item فایل خروجی ابزار \code{tools/evaluate.py}؛
+  \item گزارش کوتاه دو تا چهار صفحه‌ای شامل طراحی، نتایج سرعت و تحلیل امنیتی؛
+  \item تصویر رابط کاربری در حال پخش یکی از ویدئوها.
+\end{enumerate}
+
+
+\end{document}

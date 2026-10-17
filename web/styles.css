@@ -1,0 +1,13 @@
+:root { color-scheme: dark; font-family: system-ui, sans-serif; background: #0b1220; color: #e8eef9; }
+body { margin: 0; }
+main { width: min(900px, calc(100% - 2rem)); margin: 0 auto; padding: 3rem 0; }
+header, section, aside { margin-bottom: 2rem; }
+.eyebrow { color: #7dd3fc; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+h1 { font-size: clamp(2.25rem, 7vw, 4.5rem); line-height: 1; margin: .3rem 0 1rem; }
+.video-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: .8rem; }
+button { padding: 1rem; border: 1px solid #334155; border-radius: .7rem; background: #172033; color: inherit; text-align: left; cursor: pointer; }
+button:hover, button:focus-visible { border-color: #7dd3fc; outline: 2px solid transparent; }
+button span { display: block; color: #aab8cd; margin-top: .35rem; }
+video { display: block; width: 100%; min-height: 260px; border-radius: .8rem; background: #000; }
+#status { min-height: 1.5em; color: #bae6fd; }
+aside { border-left: 4px solid #f59e0b; padding: 1rem; background: #261b0a; }

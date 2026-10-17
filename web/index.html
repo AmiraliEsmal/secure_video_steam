@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LFSR Video Lab</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/app.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">Applied Cryptography Laboratory</p>
+        <h1>LFSR video stream</h1>
+        <p>Select a video. The server encrypts every requested range and this browser decrypts it while the video plays.</p>
+      </header>
+      <section aria-labelledby="videos-heading">
+        <h2 id="videos-heading">Videos</h2>
+        <div id="video-list" class="video-list" aria-live="polite"></div>
+      </section>
+      <section class="player" aria-labelledby="player-heading">
+        <h2 id="player-heading">Player</h2>
+        <p id="status" role="status">Loading video list…</p>
+        <video id="player" controls preload="metadata" aria-label="Selected decrypted video"></video>
+      </section>
+      <aside>
+        <strong>Teaching cipher only.</strong> A linear LFSR is predictable, and reusing its seed repeats the keystream. Passing statistical tests does not make it secure.
+      </aside>
+    </main>
+  </body>
+</html>

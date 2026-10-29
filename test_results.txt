@@ -1,0 +1,25 @@
+test_chunk_offsets_match_whole_message (test_cipher.CipherTests.test_chunk_offsets_match_whole_message) ... ok
+test_keystream_repeats_after_maximal_lfsr_period (test_cipher.CipherTests.test_keystream_repeats_after_maximal_lfsr_period) ... ok
+test_known_vector (test_cipher.CipherTests.test_known_vector) ... ok
+test_rejects_invalid_seed_and_offset (test_cipher.CipherTests.test_rejects_invalid_seed_and_offset) ... ok
+test_xor_is_its_own_inverse (test_cipher.CipherTests.test_xor_is_its_own_inverse) ... ok
+test_benchmark_reports_latency_throughput_and_headroom (test_evaluate.EvaluationTests.test_benchmark_reports_latency_throughput_and_headroom) ... ok
+test_command_includes_nonlinear_generator_comparison (test_evaluate.EvaluationTests.test_command_includes_nonlinear_generator_comparison) ... ok
+test_nistrng_adapter_returns_named_results (test_evaluate.EvaluationTests.test_nistrng_adapter_returns_named_results) ... ok
+test_every_listed_video_round_trips_in_chunks (test_server.VideoApiTests.test_every_listed_video_round_trips_in_chunks) ... ok
+test_lists_only_supported_videos (test_server.VideoApiTests.test_lists_only_supported_videos) ... ok
+test_rejects_unknown_video_and_invalid_ranges (test_server.VideoApiTests.test_rejects_unknown_video_and_invalid_ranges) ... ok
+test_static_responses_include_security_headers (test_server.VideoApiTests.test_static_responses_include_security_headers) ... ok
+test_javascript_matches_python_known_vector_and_offsets (test_ui.BrowserContractTests.test_javascript_matches_python_known_vector_and_offsets) ... ok
+test_networking_and_ordering_are_completed (test_ui.BrowserContractTests.test_networking_and_ordering_are_completed) ... ok
+test_page_has_accessible_player_and_status (test_ui.BrowserContractTests.test_page_has_accessible_player_and_status) ... ok
+test_service_worker_streams_the_complete_requested_range (test_ui.BrowserContractTests.test_service_worker_streams_the_complete_requested_range) ... ok
+test_geffe_known_vector (test_variants.NonlinearVariantTests.test_geffe_known_vector) ... ok
+test_nlfsr_known_vector (test_variants.NonlinearVariantTests.test_nlfsr_known_vector) ... ok
+test_variant_offsets_match_whole_stream (test_variants.NonlinearVariantTests.test_variant_offsets_match_whole_stream) ... ok
+test_variants_validate_inputs (test_variants.NonlinearVariantTests.test_variants_validate_inputs) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 1.156s
+
+OK

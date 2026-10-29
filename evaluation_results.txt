@@ -1,0 +1,58 @@
+{
+  "warning": "Statistical test results do not establish cryptographic security.",
+  "benchmark": {
+    "bytes": 16384,
+    "chunks": 4,
+    "elapsed_seconds": 0.12038140001823194,
+    "mean_chunk_latency_ms": 30.095350004557986,
+    "throughput_mbps": 1.0888060778504731,
+    "media_bitrate_mbps": 2.0,
+    "headroom_ratio": 0.5444030389252366
+  },
+  "nist_sp800_22": [
+    {
+      "name": "monobit",
+      "status": "passed",
+      "score": 0.9955922912973103,
+      "elapsed_ms": 1.0
+    }
+  ],
+  "generator_comparison": [
+    {
+      "generator": "lfsr",
+      "throughput_mbps": 2.4469572647172324,
+      "nist_sp800_22": [
+        {
+          "name": "monobit",
+          "status": "passed",
+          "score": 0.9955922912973103,
+          "elapsed_ms": 0.0
+        }
+      ]
+    },
+    {
+      "generator": "nlfsr",
+      "throughput_mbps": 2.3559143206152786,
+      "nist_sp800_22": [
+        {
+          "name": "monobit",
+          "status": "passed",
+          "score": 0.6307925408246204,
+          "elapsed_ms": 0.0
+        }
+      ]
+    },
+    {
+      "generator": "geffe",
+      "throughput_mbps": 0.8498856527165353,
+      "nist_sp800_22": [
+        {
+          "name": "monobit",
+          "status": "passed",
+          "score": 0.9955922912973103,
+          "elapsed_ms": 0.0
+        }
+      ]
+    }
+  ]
+}
